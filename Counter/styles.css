@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container h2{
+    font-size: 45px;
+    margin: 10px 0;
+}
+
+.botones{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 450px){
+    .botones{
+        flex-direction: column;
+    }
+}
+
+.boton{
+    width: 100px;
+    height: 30px;
+    margin: 10px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.boton:hover{
+    color: white;
+    background-color: #222;
+}
