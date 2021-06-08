@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+    <title>Navbar on Scroll</title>
+</head>
+<body>
+    <header>
+        <nav class = "Navbar" id = "nav">
+            <img class = "logo" src="logo.svg">
+            <ul class = "items">
+                <li id= "sideTitle" class = "nav-item">
+                    <img class = "logo" src="logo.svg">
+                    <button id = "cross"><i class="fas fa-times"></i></button>
+                </li>
+                <li class = "nav-item"><a class = "nav-btn" href = "#home">Home</a>
+                <li class = "nav-item"><a class = "nav-btn" href = "#about">About</a>
+                <li class = "nav-item"><a class = "nav-btn" href = "#services">Services</a>
+                <li class = "nav-item"><a class = "nav-btn" href = "#tours">Tours</a>
+            </ul>
+            <a class = "nav-toggle"><i class="fas fa-bars"></i></a>
+        </nav>
+        <div id = "home" class = "container">
+            <h1> SCROLL PROJECT </h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit nullam phasellus ante, leo posuere convallis proin consequat tincidunt tempor risus nisl aptent fringilla, potenti imperdiet augue fermentum odio nunc euismod curabitur lobortis.</p>
+            <button id = "tours-btn"> EXPLORE TOURS </button>
+        </div>
+    </header>
+    <section id = "about" class="section">
+        <div class="title">
+            <h2>about <span>us</span></h2>
+        </div>
+    </section>
+    <section id = "services" class="section">
+        <div class="title">
+            <h2>our <span>services</span></h2>
+        </div>
+    </section>
+    <section id = "tours" class="section">
+        <div class="title">
+            <h2>featured <span>tours</span></h2>
+        </div>
+    </section>
+    <footer>
+        <p> Copyright &copy; backroads travel tours company. all rights reserved </p>
+    </footer>
+</body>
+<script src="main.js"></script>
+</html>

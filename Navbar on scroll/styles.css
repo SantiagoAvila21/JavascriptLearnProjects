@@ -1,0 +1,182 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Oxygen', sans-serif;
+    scroll-behavior: smooth;
+}
+
+.Navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 2px 20px;
+}
+
+.fixedNavbar{
+    position: fixed;
+    width: 97.5vw;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.fixedNavbar .items a, .fixedNavbar .nav-toggle{
+    color: hsl(209, 61%, 16%);
+}
+
+.fixedNavbar .items a:hover{
+    color: hsla(182, 63%, 54%);
+}
+
+.logo{
+    height: 100%;
+}
+
+.Navbar a{
+    text-decoration: none;
+    color: white;
+    cursor:pointer;
+}
+
+.Navbar a:hover{
+    color: #0C76ED;
+}
+
+.Navbar ul{
+    list-style-type: none;
+}
+
+.nav-item{
+    display: inline;
+    padding: 0 20px;
+}
+
+.container{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+}
+
+.container p{
+    margin: 10px 0;
+    text-align: center;
+    width: 60%;
+}
+
+#tours-btn{
+    color: white;
+    background: transparent;
+    border-color: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 35px;
+    cursor: pointer;
+}
+
+#tours-btn:hover{
+    background-color: white;
+    color: black;
+}
+
+header{
+    height: 100vh;
+    background: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7)),url(./hero-bcg.jpeg) center/cover no-repeat;
+}
+
+.section {
+    padding-bottom: 5rem;
+    height: 80vh;
+}
+  
+.section-center {
+    width: 90vw;
+    margin: 0 auto;
+    max-width: 1170px;
+}
+
+@media screen and (min-width: 992px) {
+    .section-center {
+      width: 95vw;
+    }
+}
+
+.title h2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.title span {
+    color: hsla(182, 63%, 54%);;
+}
+
+footer{
+    font-size: 25px;
+    display: grid;
+    place-content: center;
+    background-color: rgba(19, 17, 17, 0.7);
+    height: 150px;
+}
+
+.nav-toggle{
+    display: none;
+}
+
+#sideTitle{
+    display: none;
+}
+
+@media(max-width: 500px){
+    .fixedNavbar{
+        width: 92vw;
+    }
+    .items{
+        background-color: rgba(63, 208, 212, 0.89);
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        box-shadow: 10px 0 5px -2px #888;
+        width: 100vw;
+        height: 100vh;
+        transition: all 0.5s linear;
+        transform: translate(-105%);
+    }
+    .showSidebar{
+        display: block;
+        transform: translate(0);
+    }
+    .nav-item{
+        height: 20px;
+        border: 0.2px solid gray;
+        display: flex;
+        padding: 20px 0;
+        justify-content: center;
+    }
+    .hideItems{
+        display: none;
+    }
+    .nav-toggle{
+        display: block;
+    }
+    #sideTitle{
+        padding: 0;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #cross{
+        cursor: pointer;
+        font-size: 20px;
+        border: none;
+        background: transparent;
+        margin: 0 20px;
+    }
+    #sideTitle img{
+        height: 100%;
+    }
+}
