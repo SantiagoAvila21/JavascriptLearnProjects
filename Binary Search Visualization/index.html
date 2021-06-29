@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+    <title>Binary Search Visualization</title>
+</head>
+<body>
+    <header>
+        <h2> Binary Search Visualization </h2>
+    </header>
+    <hr id="separator">
+    <div class = "error-section">
+        <div class = "error"></div>
+    </div>
+    <div class = "container-animation">
+        <div class = "container-arrowDown">
+            <i class="fas fa-chevron-down" id="arrow-low"><span>Low</span></i>
+            <i class="fas fa-chevron-down" id="arrow-high"><span>High</span></i>
+        </div>
+        <div class = "array-container"></div>
+        <div class = "container-arrowUp">
+            <i class="fas fa-chevron-up" id = "arrow-mid"><br><span>Mid</span></i>
+        </div>
+    </div>
+    <div class="explain-container">
+        <p class ="search-key"> Search key: 33 </p>
+        <div class = "explain">
+            <p> Mid = 10 + </p>
+            <div id = "fraction">
+                <p class = "numerator"> 19 - 10 </p>
+                <hr>
+                <p class = "denominator"> 2 </p>
+            </div>
+            <p> = 14 </p>
+        </div>
+        <p class ="comparisons"> Total comparisons: 1 </p>
+    </div>
+    <div class = "configuration">
+        <div>
+            <button id="edit-btn"> Edit </button>
+            <button id="create-btn"> Create New </button>
+        </div>
+        <div id="array-form">
+            <input type = "text" id="array" placeholder = "Insert the array items separate by a comma">
+            <button id = "check"> <i class="fas fa-check"></i> </button>
+        </div>
+        <div>
+            <button id="search-btn"> Search </button>
+            <input type = "text" id="search-value" placeholder = "Value">
+        </div>
+    </div> 
+</body>
+<script src = "main.js"></script>
+<script src = "BinarySearch.js"></script>
+</html>
