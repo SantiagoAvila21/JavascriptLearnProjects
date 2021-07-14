@@ -1,3 +1,6 @@
+const lowArrow = document.querySelector("#arrow-low");
+const highArrow = document.querySelector("#arrow-high");
+const midArrow = document.querySelector("#arrow-mid");
 const editButton = document.querySelector("#edit-btn");
 const createButton = document.querySelector("#create-btn");
 const arrayValue = document.querySelector("#array");
@@ -7,10 +10,12 @@ const arrayContainer = document.querySelector(".array-container");
 const searchButton = document.querySelector("#search-btn");
 const searchValue = document.querySelector("#search-value");
 const errorSection = document.querySelector(".error-section");
-const configSection = document.querySelector(".configuration");
 const explainContainer = document.querySelector(".explain-container");
+let array = [];
+let editFlag;
+let animationDone = false;
+let arrowsPosition;
 
-//Function that create the array on screen
 const createArray = (arr) => {
     arr.forEach((elem,id) => {
         let newItem = document.createElement("div");
@@ -25,32 +30,19 @@ const createArray = (arr) => {
     });
 };
 
-//Function that displays some Error on screen
 const displayError = (errorMessage) => {
+    console.log(errorSection);
     errorSection.style.display = "grid";
     errorSection.querySelector(".error").innerHTML = `
         <p> ${errorMessage} </p>
     `;
 };
 
-//Function that gets everything ready to start the animations
-const setInitAnimation = () => {
-    const lowArrowSpan = lowArrow.querySelector("span");
-    const highArrowSpan = highArrow.querySelector("span");
-    animateArrow(lowArrow,0);
-    animateArrow(highArrow,array.length-1);
-    if(Math.abs(lowArrowSpan.offsetTop) > Math.abs(highArrowSpan.offsetTop)) moveVerticalArrowSpan(lowArrow,highArrowSpan.offsetTop);
-    else moveVerticalArrowSpan(highArrow,lowArrowSpan.offsetTop);
-    if(array.length == 1) mergeArrow(lowArrow);
-};
-
-//Function that changes the displays of the arrows
 const setDefault = () => {
     document.querySelector(".container-arrowDown").style.display = "none";
     document.querySelector(".container-arrowUp").style.display = "none";    
 };
 
-//editButton once is clicked fills the arrayForm with
 editButton.addEventListener("click", () => {
     if(array.length == 0) {
         displayError("It is needed to exist an array to edit");
@@ -60,24 +52,87 @@ editButton.addEventListener("click", () => {
     arrayValue.value = array.join(",");
 });
 
-//Once the checkButton is clicked
+const BinarySearch = async (flag,arr) => {
+    let low = 0, high = arr.length-1;
+    while(low <= high){
+        if(low == high){
+            
+        }
+        let mid = Math.floor((low + high)/2);
+        await animateArrow(midArrow,mid);
+        arrowsPosition = {low,mid,high};
+        if(arr[mid] == flag) return true;
+        if(arr[mid] < flag){
+            low = mid + 1;
+            await animateArrow(lowArrow, low);
+        } 
+        else{
+            high = mid - 1;
+            await animateArrow(highArrow,high);
+        }
+    }
+    return false;
+};
+
+const explain = (low, mid, high, flag, target) => {
+    return new Promise(resolve => {
+        if(flag){
+            explainContainer.innerHTML = `
+                <p class ="search-key"> Search key: ${target} </p>
+                <div class = "explain">
+                    <p> Mid = </p>
+                    <div id = "fraction">
+                        <p class = "numerator"> ${low} + ${high}  </p>
+                        <hr>
+                        <p class = "denominator"> 2 </p>
+                    </div>
+                    <p> = ${mid} </p>
+                </div>
+                <p class ="comparisons"> Total comparisons: 1 </p>
+            `; 
+        }else{
+            let fct = () ? : ;
+            explainContainer.innerHTML = `
+                <p class ="search-key"> Search key: 33 </p>
+                <div class = "explain">
+                    <p>  </p>
+                </div>
+                <p class ="comparisons"> Total comparisons: 1 </p>
+            `;
+        }
+    });
+};
+
+const animateArrow = (arrow,pos) => {
+    return new Promise(resolve => {
+        const index = {
+            element: document.querySelectorAll(".array-item")[pos],
+            left: Math.round(document.querySelectorAll(".array-item")[pos].getBoundingClientRect().left),
+            right: Math.round(document.querySelectorAll(".array-item")[pos].getBoundingClientRect().right),
+            top: Math.round(document.querySelectorAll(".array-item")[pos].offsetTop),
+            bottom: Math.round(document.querySelectorAll(".array-item")[pos].offsetTop + 52)
+        };
+        console.log(index.element,index.top);
+        arrow.style.top = ((arrow == midArrow) ? index.bottom : index.top - 38) + "px";
+        arrow.style.left = (index.left + index.right)/2 - 7 + "px";
+        setTimeout(resolve,1500);
+    });
+};
+
 checkButton.addEventListener("click",() => {
-    explainContainer.style.display = "none";
     errorSection.style.display = "none";
-    //errors management
     if(arrayValue.value.length == 0){
         displayError("Please insert an array");
         arrayValue.focus();
         return;
     }else{
-        //Get user input and map it into a valid array to sort it
         arrayContainer.querySelectorAll(".array-item").forEach(elem => arrayContainer.removeChild(elem));
         array = arrayValue.value.split(",").map(elem => parseInt(elem));
         array.sort((a,b) => {
             return a-b;
         });
-        //If the array has some element that is NaN, displays an error
-        if(array.some((elem) => isNaN(elem))){
+        const containsNan = array.some((elem) => isNaN(elem));
+        if(containsNan){
             displayError("Please insert a valid numerical array");
             arrayValue.focus();
             setDefault();
@@ -85,15 +140,14 @@ checkButton.addEventListener("click",() => {
         }
         createArray(array);
         document.querySelector(".container-arrowDown").style.display = "flex";
-        setInitAnimation();
+        animateArrow(lowArrow,0);
+        animateArrow(highArrow,array.length-1);
     }
     midArrow.style.display = "none";
     arrayValue.value = "";
     arrayForm.style.display = "none";
 });
 
-//If the user resize the window, we have to move the arrows into their respective positions 
-//According into if the animation is done or not
 window.addEventListener("resize",() => {
     if(array.length > 0){
         if(!animationDone){
@@ -107,30 +161,26 @@ window.addEventListener("resize",() => {
     }
 });
 
-//Create Button just displays the arrayForm and set the value to blank
 createButton.addEventListener("click",() => {
     arrayValue.value = "";
     arrayForm.style.display = "flex";
 });
 
 searchButton.addEventListener("click", () => {
-    //Error management
-    if(array.length == 0){
-        displayError("It must exist an array for search value");
-        return;
-    }
-    if(isNaN(searchValue.value) || searchValue.value.length == 0){
+    if(isNaN(searchValue.value)){
         displayError("Please search for a valid number");
         searchValue.focus();
         return;
     }
-    //Start the animation calling to BinarySearch() with the respective values
-    configSection.style.display = "none";
+    if(array.length == 0){
+        displayError("It must exist an array for search value");
+        return;
+    }
     errorSection.style.display = "none";
     midArrow.style.display = "initial";
-    setInitAnimation();
+    animateArrow(lowArrow,0);
+    animateArrow(highArrow,array.length-1);
     document.querySelector(".container-arrowUp").style.display = "flex";
-    //Since Binary Search is an async function we want that once is finished the configSection displays again
-    BinarySearch(parseInt(searchValue.value),array).then(() => configSection.style.display = "flex");
+    BinarySearch(parseInt(searchValue.value),array);
     animationDone = true;
 });
